@@ -80,19 +80,20 @@ public class main {
             int sectionD = 0;
             int sectionF = 0;
             for (int i = 0; i < numGrades; i++) {
-                if (!input.hasNextInt()) break;
-                int grade = input.nextInt();
+                if (input.hasNextInt()) {
+                    int grade = input.nextInt();
 
-                sectionSum += grade;
-                sectionHighest = Math.max(sectionHighest, grade);
-                sectionLowest = Math.min(sectionLowest, grade);
+                    sectionSum += grade;
+                    sectionHighest = Math.max(sectionHighest, grade);
+                    sectionLowest = Math.min(sectionLowest, grade);
 
-                // Categorize grade
-                if (grade >= 80) sectionA++;
-                else if (grade >= 70) sectionB++;
-                else if (grade >= 60) sectionC++;
-                else if (grade >= 50) sectionD++;
-                else sectionF++;
+                    // Categorize grade
+                    if (grade >= 80) sectionA++;
+                    else if (grade >= 70) sectionB++;
+                    else if (grade >= 60) sectionC++;
+                    else if (grade >= 50) sectionD++;
+                    else sectionF++;
+                }
             }
             double sectionAverage = (double) sectionSum / numGrades;
             sumOfAverages += sectionAverage;
