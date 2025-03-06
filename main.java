@@ -15,6 +15,24 @@ public class main {
 
         String filename = "";
 
+        filename = HelpCode.getString(
+            "Please enter the file name (and path) that will be used.",
+            false,
+            3,
+            -1
+        );
+
+        while (!checkFile(filename)) {
+            filename = HelpCode.getString(
+                "\nThis file: '" +
+                filename +
+                "' does not exists -- please enter a filename (and path) that exists to be read from.",
+                false,
+                3,
+                -1
+            );
+        }
+
         int totalSections = 0;
         int totalMarks = 0;
         int totalSum = 0;
@@ -26,28 +44,17 @@ public class main {
         int overallC = 0;
         int overallD = 0;
         int overallF = 0;
-        filename = HelpCode.getString(
-            "Please enter the file name (and path) that will be used.",
-            false,
-            3,
-            -1
-        );
-        while (!checkFile(filename)) {
-            filename = HelpCode.getString(
-                "\nThis file: '" +
-                filename +
-                "' does not exists -- please enter a filename (and path) that exists to be read from.",
-                false,
-                3,
-                -1
-            );
-        }
+
         File inputFile = new File(filename);
         Scanner input = new Scanner(inputFile);
 
         String outputFilePath =
             inputFile.getParent() + "/out-" + inputFile.getName();
         File outputFile = new File(outputFilePath);
+        FileOutputStream fileOutS = new FileOutputStream(outputFile, false);
+        BufferedWriter bWrite = new BufferedWriter(
+            new OutputStreamWriter(fileOutS)
+        );
 
         while (input.hasNextInt()) {
             totalSections++;
@@ -129,22 +136,56 @@ public class main {
         System.out.printf("There were %d F's%n", overallF);
 
         // Write results to output file
-        writer.printf("Overall Statistics for: '%s'%n", inputFile.getName());
-        writer.printf("Total number of sections: %d%n", totalSections);
-        writer.printf("Highest mark: %d%n", overallHighest);
-        writer.printf("Lowest mark: %d%n", overallLowest);
-        writer.printf("Total number of marks: %d%n", totalMarks);
-        writer.printf("Overall average: %.1f%n", overallAverage);
-        writer.printf("Average of section averages: %.1f%n", avgOfAverages);
-        writer.println("Grade Statistics:");
-        writer.printf("There were %d A's%n", overallA);
-        writer.printf("There were %d B's%n", overallB);
-        writer.printf("There were %d C's%n", overallC);
-        writer.printf("There were %d D's%n", overallD);
-        writer.printf("There were %d F's%n", overallF);
+        String temp;
+        temp = String.format(
+            "Overall Statistics for: '%s'%n",
+            inputFile.getName()
+        );
+        bWrite.write("" + temp);
+        bWrite.newLine();
+        temp = String.format("Total number of sections: %d%n", totalSections);
+        bWrite.write("" + temp);
+        bWrite.newLine();
+        temp = String.format("Highest mark: %d%n", overallHighest);
+        bWrite.write("" + temp);
+        bWrite.newLine();
+        temp = String.format("Lowest mark: %d%n", overallLowest);
+        bWrite.write("" + temp);
+        bWrite.newLine();
+        temp = String.format("Total number of marks: %d%n", totalMarks);
+        bWrite.write("" + temp);
+        bWrite.newLine();
+        temp = String.format("Overall average: %.1f%n", overallAverage);
+        bWrite.write("" + temp);
+        bWrite.newLine();
+        temp = String.format(
+            "Average of section averages: %.1f%n",
+            avgOfAverages
+        );
+        bWrite.write("" + temp);
+        bWrite.newLine();
+        temp = String.format("Grade Statistics:");
+        bWrite.write("" + temp);
+        bWrite.newLine();
+        temp = String.format("There were %d A's%n", overallA);
+        bWrite.write("" + temp);
+        bWrite.newLine();
+        temp = String.format("There were %d B's%n", overallB);
+        bWrite.write("" + temp);
+        bWrite.newLine();
+        temp = String.format("There were %d C's%n", overallC);
+        bWrite.write("" + temp);
+        bWrite.newLine();
+        temp = String.format("There were %d D's%n", overallD);
+        bWrite.write("" + temp);
+        bWrite.newLine();
+        temp = String.format("There were %d F's%n", overallF);
+        bWrite.write("" + temp);
+        bWrite.newLine();
 
         System.out.println("\nResults written to: " + outputFilePath);
         input.close();
+        bWrite.close();
     }
 
     /**
