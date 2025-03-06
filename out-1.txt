@@ -1,25 +1,15 @@
 Overall Statistics for: '1.txt'
 
 Total number of sections: 3
-
 Highest mark: 100
-
 Lowest mark: 0
-
 Total number of marks: 14
-
 Overall average: 73.6
-
 Average of section averages: 77.6
 
 Grade Statistics:
 There were 7 A's
-
 There were 2 B's
-
 There were 2 C's
-
 There were 2 D's
-
 There were 1 F's
-

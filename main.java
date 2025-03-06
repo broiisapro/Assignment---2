@@ -18,7 +18,7 @@ public class main {
         filename = HelpCode.getString(
             "Please enter the file name (and path) that will be used.",
             false,
-            3,
+            5,
             -1
         );
 
@@ -48,8 +48,13 @@ public class main {
         File inputFile = new File(filename);
         Scanner input = new Scanner(inputFile);
 
+        int temp1 = filename.lastIndexOf('/');
+
         String outputFilePath =
-            inputFile.getParent() + "/out-" + inputFile.getName();
+            filename.substring(0, (temp1 + 1)) +
+            "out-" +
+            filename.substring((temp1 + 1));
+
         File outputFile = new File(outputFilePath);
         FileOutputStream fileOutS = new FileOutputStream(outputFile, false);
         BufferedWriter bWrite = new BufferedWriter(
